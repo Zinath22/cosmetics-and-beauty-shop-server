@@ -11,8 +11,6 @@ app.use(express.json());
 
 
 
-
-
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.kgjjcg0.mongodb.net/?retryWrites=true&w=majority`;
 console.log(uri);
 
@@ -53,6 +51,8 @@ async function run() {
         res.send(result);
     })
 
+    
+
     // update put 
 
     app.put('/product/:id', async(req, res) => {
@@ -76,7 +76,23 @@ async function run() {
       res.send(result);
     })
 
+  
+     //  cart server
+     const cartCollection = client.db("productDB").collection("cart")
 
+     // GET CART
+     app.get('/cart', async (req, res) => {
+         const cursor = cartCollection.find();
+         const result = await cursor.toArray();
+         res.send(result)
+     })
+     // add cart
+     app.post('/cart', async (req, res) => {
+         const dataToSend = req.body;
+         console.log(dataToSend);
+         const result = await cartCollection.insertOne(dataToSend);
+         res.send(result);
+     })
 
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
