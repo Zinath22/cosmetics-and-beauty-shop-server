@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config()
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const app = express();
 const port = process.env.PORT || 5000;
 
@@ -32,11 +32,19 @@ async function run() {
 
     const productCollection = client.db('productDB').collection('product')
   
-   app.get('product', async(req, res) =>{
+   app.get('/product', async(req, res) =>{
     const cursor = productCollection.find();
     const result = await cursor.toArray();
     res.send(result);
    })
+
+  //  update 
+  app.get('/product/:id', async(req, res) => {
+    const id = req.params.id;
+    const query = {_id: new ObjectId(id)}
+    const result = await productCollection.findOne(query);
+    res.send(result);
+  })
 
     app.post('/product', async(req, res) =>{
         const newProducts = req.body;
@@ -61,3 +69,6 @@ app.get('/', (req, res) =>{
 app.listen(port, () => {
     console.log(`cosmetics server is running on port: ${port}`)
 })
+
+
+
