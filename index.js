@@ -36,7 +36,7 @@ async function run() {
     const cursor = productCollection.find();
     const result = await cursor.toArray();
     res.send(result);
-   })
+   });
 
   //  update 
 app.get('/product/:id', async(req, res) =>{
