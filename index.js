@@ -131,3 +131,24 @@ app.listen(port, () => {
 
 
 
+// food form add 
+// app.get('/myAddFoodItem', async (req, res) => {
+//   const cursor = foodAddCollection.find();
+//   const result = await cursor.toArray();
+//   res.send(result);
+// });
+
+// app.post('/myAddFoodItem', async(req, res ) => {
+//   const newFood = req.body;
+//   console.log(newFood);
+//   const result = await foodAddCollection.insertOne(newFood);
+//   res.send(result);
+// })
+
+    // update food 
+    // app.get('/allfood/:id', async(req, res) =>{
+    //   const id = req.params.id;
+    //   const query = { _id: new ObjectId(id)}
+    //   const result = await foodCollection.findOne(query);
+    //   res.send(result);
+    // })
